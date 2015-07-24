@@ -81,7 +81,7 @@ module Enumerable
     end
   end
 
-  def my_count(number=0)
+  def my_count(number = (number_not_passed = true; 0))
     count = 0
     if block_given? 
       self.my_each do |i|
@@ -96,9 +96,12 @@ module Enumerable
           count += 1
         end
       end
-      count # Returns number of items equal to the given argument.
-    end
-    self.length # If no arguments are given, returns total number of items.
+      if number == 0
+        return self.length # If no arguments are given, returns total number of items.
+      else
+        return count # Returns number of items equal to the given argument.
+      end
+    end 
   end
 
   def my_map
@@ -159,3 +162,4 @@ end
 array = [4,3,78,2,0,2]
 proc = Proc.new {|i| i * 2}
 # EX: p array.my_map3(proc) {|i| i - 2} => [6, 4, 154, 2, -2, 2]
+
